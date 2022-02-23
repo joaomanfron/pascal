@@ -1,0 +1,16 @@
+usuário1 escolha X ou O para começar
+
+repita
+    imprima "escolha as casas de 1 a 9 para deixar uma marcação"
+    usuario1 = escolhe 1,9
+    usuario2 = escolhe 1,9
+        verificar se numero de usuario2 não coincide com numero de usuario1
+        se  
+            numero1 = numero2 
+            imprima "invalido"
+            
+até que usuario1 ou usuario2 tenham suas marcaçoes em:
+    (1,2,3) , (1,4,7) , (1,5,9) , (2,5,8) , (3,6,9) , (3,5,7) , (4,5,6) ou (7,8,9)
+    
+ou
+    casas 1,2,3,4,5,6,7,8 e 9 sejam preenchidos.
