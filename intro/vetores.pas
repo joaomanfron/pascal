@@ -10,9 +10,11 @@ R : array [1..RSIZE] of integer;
 S : array [1..SSIZE] of integer;
 U : array [1..(RSIZE+SSIZE)] of integer;
 C : array [1..RSIZE] of integer;
+D : array [1..RSIZE] of integer;
 i,n,j: integer;
 Usuario: string;
-elementoRepetido: boolean;
+elementoRepetido, repeteElementos: boolean;
+
 
 begin
     clrscr;
@@ -43,13 +45,26 @@ begin
             if R[i] = S[n] then
             begin
                 elementoRepetido := true;
-                C[i] := S[n];
+                C[i] := R[i];
 
             end;        
     if elementoRepetido then
-        for i:= 1 to SSIZE do
+        for i:= 1 to RSIZE do
             writeln (C[i],' ')
     else
         writeln ('Não existem elementos repetidos');
-            
+    writeln ('Os numeros do primeiro vetor que não estão no segundo são:');
+    for i:= 1 to  RSIZE do
+    begin
+        repeteElementos := false;
+        for n:= 1 to  SSIZE do
+            if R[i] = S[n] then
+                repeteElementos := true;
+        if repeteElementos = false then
+            D[i] := R[i];
+
+    end;
+        for i:= 1 to RSIZE do
+            write (D[i],' ');
+        writeln;
 end.

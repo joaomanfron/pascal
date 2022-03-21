@@ -11,7 +11,9 @@ auxiliar : real;
 houvetroca : boolean;
 
 begin
+    writeln ('Escreva a quantidade de numeros a ser ordenada');
     readln (n);
+    writeln ('agora escreva os ',n,' numeros');
     for i := 1 to n do
         readln (V[i]);
 
