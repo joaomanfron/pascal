@@ -8,14 +8,18 @@ type
         doado : boolean;
     end;
 
-var 
+const
+    line = 3;
+    col = 2;
 
+var 
 insere: boolean;
 l, newBook: Livro;
-livroDoado, inserirLivro, qtdLivros, escolha, voltar, areaLivro: integer;
+livroDoado, inserirLivro, escolha, voltar, areaLivro: integer;
 cienciasHumanas : array [1..2] of Livro;
 cienciasExatas : array [1..2] of Livro;
 cienciasBiomedicas : array [1..2] of Livro;
+Biblioteca : array [1..3, 1..2] of integer;
 
 function imprimeListaAreas : boolean;
 begin
@@ -35,7 +39,6 @@ function criaLivro : Livro;
 var 
     novoLivro : Livro;
 begin
-    // repeat;
     clrscr;
     
     writeln ('Insira o nome do livro');
@@ -58,31 +61,31 @@ begin
         novoLivro.doado := false;
     
     Exit (novoLivro)
-
-    // until insereLivro = 2
 end;
 
-function insereLivro(novoLivro : Livro) : boolean;
+function insereLivro(area : integer; novoLivro : Livro; inserido : boolean) : boolean;
+var
+    posicao : integer;
 begin    
-    qtdLivros := qtdLivros + 1;
-    cienciasHumanas[qtdLivros] := novoLivro;
-    writeln ('Deseja inserir novo livro?');
-    writeln ('1 - sim');
-    writeln ('2 - nao');
-    readln (inserirLivro);
-    if inserirLivro = 1 then 
-        insere := true 
-    else
-        insere := false;
-    clrscr;
-end;
+posicao := 1;
+inserido := false;
+    repeat
+        if Biblioteca[area,posicao] then
+            Biblioteca[area,posicao] := novoLivro;
+    until inserido = true;
 
-function areaImprimir :integer;
-begin
-    writeln ('Deseja imprimir livro de qual area?');
-    imprimeListaAreas();
-    readln (areaLivro);
-end;
+            
+//     cienciasHumanas := novoLivro;
+//     writeln ('Deseja inserir novo livro?');
+//     writeln ('1 - sim');
+//     writeln ('2 - nao');
+//     readln (inserirLivro);
+//     if inserirLivro = 1 then 
+//         insere := true 
+//     else
+//         insere := false;
+//     clrscr;
+// end;
 
 function ImprimeLivro(ln : Livro) : boolean;
 begin
@@ -95,17 +98,19 @@ begin
     writeln ('numero de paginas do livro: ', ln.numeroDePaginas);
     writeln ('doado?: ', ln.doado);
     writeln;
-    // writeln ('0 - voltar');
-    // repeat
-    //     readln (voltar);
-    //     if voltar =0 then
-    //     clrscr;
-    // until voltar =0;
+    writeln ('0 - voltar');
+    repeat
+        readln (voltar);
+        if voltar =0 then
+        clrscr;
+    until voltar =0;
+    ImprimeLivro = 1
 end;
 
 begin
     clrscr;
     repeat
+        clrscr;
         writeln ('MENU');
         writeln;
         writeln ('Escolha uma das tres opçoes');
@@ -115,13 +120,14 @@ begin
         readln (escolha);
         case escolha of
             1 : begin
+                    clrscr;
                     imprimeAreas();
                     newbook := criaLivro();
-                    ImprimeLivro(newBook);
                 end;
             2 : begin
-                    areaImprimir();
-                    // ImprimeLivro();
+                    clrscr;
+                    imprimeAreas();
+                    ImprimeLivro(newBook);
                 end;
             3 : writeln ('sair');
         end;
