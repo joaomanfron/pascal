@@ -19,7 +19,7 @@ livroDoado, inserirLivro, escolha, voltar, areaLivro: integer;
 cienciasHumanas : array [1..2] of Livro;
 cienciasExatas : array [1..2] of Livro;
 cienciasBiomedicas : array [1..2] of Livro;
-Biblioteca : array [1..3, 1..2] of integer;
+Biblioteca : array [1..3, 1..2] of Livro;
 
 function imprimeListaAreas : boolean;
 begin
@@ -85,7 +85,7 @@ inserido := false;
 //     else
 //         insere := false;
 //     clrscr;
-// end;
+end;
 
 function ImprimeLivro(ln : Livro) : boolean;
 begin
@@ -104,7 +104,6 @@ begin
         if voltar =0 then
         clrscr;
     until voltar =0;
-    ImprimeLivro = 1
 end;
 
 begin
