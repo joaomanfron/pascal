@@ -14,25 +14,29 @@ const
 
 var 
 insere: boolean;
-l, newBook: Livro;
-livroDoado, inserirLivro, escolha, voltar, areaLivro: integer;
+l, newbook: Livro;
+livroDoado, inserirLivro, escolha, voltar, areaLivro, i, j: integer;
 cienciasHumanas : array [1..2] of Livro;
 cienciasExatas : array [1..2] of Livro;
 cienciasBiomedicas : array [1..2] of Livro;
 Biblioteca : array [1..3, 1..2] of Livro;
 
 function imprimeListaAreas : boolean;
+
 begin
     writeln ('1 - Ciencias exatas');
     writeln ('2 - Ciencias humanas');
     writeln ('3 - Ciencias biomedicas');
+
 end;
 
 function imprimeAreas :integer;
+    var area: integer;
 begin
         writeln ('Deseja inserir livro de qual area?');
         imprimeListaAreas();
-        readln (areaLivro);
+        readln (area);
+        exit(area);
 end;
 
 function criaLivro : Livro;
@@ -60,18 +64,24 @@ begin
     else
         novoLivro.doado := false;
     
-    Exit (novoLivro)
+    Exit (novoLivro);
 end;
 
-function insereLivro(area : integer; novoLivro : Livro; inserido : boolean) : boolean;
+function insereLivro(area : integer; novoLivro : Livro ) : boolean;
 var
     posicao : integer;
+    inserido : boolean;
 begin    
-posicao := 1;
-inserido := false;
+    writeln(' INSERE LIVRO');
+    posicao := 1;
+    inserido := false;
+   
     repeat
-        if Biblioteca[area,posicao] then
+        if Biblioteca[area,posicao].codigo = 0 then
+        begin
             Biblioteca[area,posicao] := novoLivro;
+            inserido :=  true;
+        end;
     until inserido = true;
 
             
@@ -87,9 +97,10 @@ inserido := false;
 //     clrscr;
 end;
 
+
 function ImprimeLivro(ln : Livro) : boolean;
 begin
-    clrscr;
+    // clrscr;
     writeln ('Imprimindo...');
     writeln ('nome do livro: ', ln.nome);
     writeln ('nome do autor: ', ln.autor);
@@ -102,10 +113,23 @@ begin
     repeat
         readln (voltar);
         if voltar =0 then
-        clrscr;
+        // clrscr;
     until voltar =0;
 end;
 
+function ImprimeBiblioteca : integer;
+begin
+    for i := 0 to line do
+        for j := 0 to col do
+            if Biblioteca[i,j].codigo <> 0 then
+                ImprimeLivro(Biblioteca[i,j]);
+end;
+
+function ImprimeArea : integer;
+begin
+    for i := 0 to line do
+        imprimeListaAreas();
+end;
 begin
     clrscr;
     repeat
@@ -120,13 +144,14 @@ begin
         case escolha of
             1 : begin
                     clrscr;
-                    imprimeAreas();
+                    areaLivro := imprimeAreas();
                     newbook := criaLivro();
+                    insereLivro(areaLivro, newbook);
                 end;
             2 : begin
                     clrscr;
                     imprimeAreas();
-                    ImprimeLivro(newBook);
+                    ImprimeBiblioteca();
                 end;
             3 : writeln ('sair');
         end;
