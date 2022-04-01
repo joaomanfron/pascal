@@ -33,7 +33,7 @@ end;
 function imprimeAreas :integer;
     var area: integer;
 begin
-        writeln ('Deseja inserir livro de qual area?');
+        writeln ('Escolha uma area');
         imprimeListaAreas();
         readln (area);
         exit(area);
@@ -109,31 +109,38 @@ begin
     writeln ('numero de paginas do livro: ', ln.numeroDePaginas);
     writeln ('doado?: ', ln.doado);
     writeln;
-    writeln ('0 - voltar');
-    repeat
-        readln (voltar);
-        if voltar =0 then
-        // clrscr;
-    until voltar =0;
+    // writeln ('0 - voltar');
+    // repeat
+    //     readln (voltar);
+    //     if voltar =0 then
+    //     // clrscr;
+    // until voltar =0;
 end;
 
-function ImprimeBiblioteca : integer;
+function ImprimeBiblioteca (x :  integer): integer;
 begin
-    for i := 0 to line do
-        for j := 0 to col do
+    writeln (x);
+    for i := 1 to line do
+        for j := 1 to col do
             if Biblioteca[i,j].codigo <> 0 then
                 ImprimeLivro(Biblioteca[i,j]);
 end;
 
+function ImprimeLivrosArea (area : integer): integer;
+begin
+    for j := 1 to col do
+        writeln (ImprimeLivro(Biblioteca[area,j]));
+end;
+
 function ImprimeArea : integer;
 begin
-    for i := 0 to line do
+    for i := 1 to line do
         imprimeListaAreas();
 end;
 begin
     clrscr;
     repeat
-        clrscr;
+        // clrscr;
         writeln ('MENU');
         writeln;
         writeln ('Escolha uma das tres opçoes');
@@ -150,8 +157,9 @@ begin
                 end;
             2 : begin
                     clrscr;
-                    imprimeAreas();
-                    ImprimeBiblioteca();
+                     areaLivro := imprimeAreas();
+                    ImprimeLivrosArea(areaLivro);
+                    
                 end;
             3 : writeln ('sair');
         end;
